@@ -20,7 +20,7 @@ class Data:
 
     if not os.path.exists(self.filename):
       df = pd.DataFrame(columns=self.columns)
-      df.to_csv(self.filename, index=False)
+      df.to_csv(self.filename,index=False)
 
   def save_data(self, date_t):
     date_t['date'] = datetime.date.today().strftime('%Y-%m-%d')

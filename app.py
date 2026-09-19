@@ -4,26 +4,22 @@ import streamlit as st
 from calculate import Income_traker
 from data_tracker import Data
 
-# 1. إعداد الشاشة لتكون بعرض كامل (Wide Layout)
 st.set_page_config(
     page_title="Personal Income & Expense Tracker",
     page_icon="💰",
-    layout="wide",
-)
+    layout="wide",)
 
-# 2. العنوان الرئيسي للتطبيق
 st.title("💰 Personal Income & Expense Tracker")
 st.caption("Manage your monthly income, fixed expenses, investments, and remaining"
     " entertainment budget.")
 st.markdown("---")
 
-# 3. تهيئة ملف التخزين
+#  تهيئة ملف التخزين
 storage = Data()
 
-# 4. تقسيم الشاشة إلى عمودين متجاورين (اليمين للبيانات واليسار للنتائج)
+#  تقسيم الشاشة إلى عمودين متجاورين (اليمين للبيانات واليسار للنتائج)
 col1, col2 = st.columns([1, 1.2], gap="large")
 
-# --- العمود الأول: نموذج إدخال البيانات ---
 with col1:
   st.subheader("📝 Enter Financial Details")
 
@@ -31,26 +27,19 @@ with col1:
     in_col1, in_col2 = st.columns(2)
 
     with in_col1:
-      monthly_income = st.number_input(
-          "Monthly Income ($)", min_value=0.0, step=100.0, value=1000.0
-      )
-      rent = st.number_input(
-          "Rent ($)", min_value=0.0, step=50.0, value=300.0
-      )
-      utilities = st.number_input(
-          "Utilities ($)", min_value=0.0, step=10.0, value=50.0
-      )
-      food = st.number_input(
-          "Food & Groceries ($)", min_value=0.0, step=50.0, value=150.0
-      )
+      monthly_income = st.number_input("Monthly Income ($)", min_value=0.0, 
+                                       step=100.0,value=1000.0)
+      rent = st.number_input("Rent ($)", min_value=0.0, step=50.0, value=300.0)
+      
+      utilities = st.number_input("Utilities ($)", min_value=0.0, step=10.0, value=50.0)
+      
+      food = st.number_input("Food & Groceries ($)", min_value=0.0, step=50.0, value=150.0)
 
     with in_col2:
-      transport = st.number_input(
-          "Transportation ($)", min_value=0.0, step=10.0, value=50.0
-      )
-      clothes_skincare = st.number_input(
-          "Clothes & Skincare ($)", min_value=0.0, step=10.0, value=100.0
-      )
+      transport = st.number_input("Transportation ($)", min_value=0.0, step=10.0, value=50.0)
+      
+      clothes_skincare = st.number_input("Clothes & Skincare ($)", min_value=0.0, step=10.0,
+                                         value=100.0)
 
     submit_btn = st.form_submit_button("Calculate & Save Data")
 
@@ -100,30 +89,24 @@ with col2:
     }
 
     summary_df = pd.DataFrame(summary_data)
-
-    # عرض الجدول
     st.table(summary_df)
 
     # رسم بياني مصغر لتمثيل التوزيع
-    labels = [
-        "Rent",
+    labels = ["Rent",
         "Utilities",
         "Food",
         "Transport",
         "Clothes",
         "Investment",
-        "Entertainment",
-    ]
-    values = [
-        latest["rent"],
+        "Entertainment",]
+    
+    values = [latest["rent"],
         latest["utilities"],
         latest["food"],
         latest["transport"],
         latest["clothes_skincare"],
         latest["investment"],
-        latest["entertainment"],
-    ]
-
+        latest["entertainment"],]
     fig, ax = plt.subplots(figsize=(5, 3))
     ax.pie(values, labels=labels, autopct="%1.1f%%", startangle=140)
     ax.axis("equal")
