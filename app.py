@@ -4,26 +4,21 @@ import streamlit as st
 from calculate import Income_traker
 from data_tracker import Data
 
-# 1. إعداد الشاشة لتكون بعرض كامل (Wide Layout)
 st.set_page_config(
     page_title="Personal Income & Expense Tracker",
     page_icon="💰",
-    layout="wide",
-)
+    layout="wide",)
 
-# 2. العنوان الرئيسي للتطبيق
 st.title("💰 Personal Income & Expense Tracker")
 st.caption("Manage your monthly income, fixed expenses, investments, and remaining"
     " entertainment budget.")
 st.markdown("---")
 
-# 3. تهيئة ملف التخزين
 storage = Data()
 
 # 4. تقسيم الشاشة إلى عمودين متجاورين (اليمين للبيانات واليسار للنتائج)
 col1, col2 = st.columns([1, 1.2], gap="large")
 
-# --- العمود الأول: نموذج إدخال البيانات ---
 with col1:
   st.subheader("📝 Enter Financial Details")
 
@@ -64,7 +59,6 @@ with col1:
     storage.save_data(tracker.all_data())
     st.success("Data saved successfully!")
 
-# --- العمود الثاني: عرض الملخص في جدول والرسم البياني ---
 with col2:
   history_df = storage.get_history()
 
